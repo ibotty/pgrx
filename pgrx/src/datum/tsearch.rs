@@ -226,6 +226,17 @@ impl TsVector {
     }
 }
 
+impl Default for TsQuery {
+    /// The empty query, `''::tsquery`; matches nothing
+    fn default() -> Self {
+        // header only (vl_len_ + size = 0), built by hand because tsqueryin('') emits a NOTICE
+        let len = std::mem::size_of::<pg_sys::TSQueryData>();
+        let mut bytes = vec![0u8; len];
+        bytes[..4].copy_from_slice(&crate::varlena::encode_vlen_4b(len as i32).to_ne_bytes());
+        TsQuery(bytes.into())
+    }
+}
+
 impl Default for TsVector {
     /// The empty vector, `''::tsvector`
     fn default() -> Self {

@@ -99,6 +99,16 @@ mod tests {
         assert!(v.matches(&"fat & cat".parse().unwrap()));
         assert!(!v.matches(&"fat & dog".parse().unwrap()));
         assert!(v.matches(&"fat <-> cat".parse().unwrap()));
+
+        let empty = TsQuery::default();
+        assert_eq!(empty.to_string(), "");
+        assert!(!v.matches(&empty));
+        let q: TsQuery = "fat".parse().unwrap();
+        assert_eq!(&q & &empty, q);
+        assert_eq!(
+            Spi::get_one::<bool>("SELECT ''::tsquery = tests.take_and_return_tsquery(''::tsquery)"),
+            Ok(Some(true))
+        );
     }
 
     #[pg_test]
