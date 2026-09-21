@@ -293,6 +293,7 @@ macro_rules! unbox_with_fromdatum {
 
 unbox_with_fromdatum! {
     TimeWithTimeZone, AnyNumeric, char, pg_sys::Point, Interval, pg_sys::BOX, pg_sys::ItemPointerData,
+    super::TsVector, super::TsQuery,
 }
 
 unsafe impl UnboxDatum for PgHeapTuple<'_, crate::AllocatedByRust> {

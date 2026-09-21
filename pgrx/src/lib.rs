@@ -91,7 +91,7 @@ pub use atomics::*;
 pub use callbacks::*;
 pub use datum::{
     AnyArray, AnyElement, AnyNumeric, Array, FromDatum, Inet, Internal, IntoDatum, Json, JsonB,
-    Numeric, Range, Uuid, VariadicArray, geo, numeric,
+    Numeric, Range, TsQuery, TsVector, Uuid, VariadicArray, geo, numeric,
 };
 pub use enum_helper::*;
 pub use fcinfo::*;

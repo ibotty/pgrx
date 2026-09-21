@@ -13,8 +13,8 @@
 use crate::datum::geo::{Path, Polygon};
 use crate::datum::{
     AnyArray, AnyElement, AnyNumeric, Date, FromDatum, Inet, Internal, Interval, IntoDatum, Json,
-    JsonB, Numeric, PgVarlena, Time, TimeWithTimeZone, Timestamp, TimestampWithTimeZone,
-    UnboxDatum, Uuid,
+    JsonB, Numeric, PgVarlena, Time, TimeWithTimeZone, Timestamp, TimestampWithTimeZone, TsQuery,
+    TsVector, UnboxDatum, Uuid,
 };
 use crate::datum::{BorrowDatum, Datum};
 use crate::datum::{Range, RangeSubType};
@@ -268,7 +268,7 @@ macro_rules! argue_from_datum {
 argue_from_datum! { 'fcx; i8, i16, i32, i64, f32, f64, bool, char, String, Vec<u8> }
 argue_from_datum! { 'fcx; Date, Interval, Time, TimeWithTimeZone, Timestamp, TimestampWithTimeZone }
 argue_from_datum! { 'fcx; AnyArray, AnyElement, AnyNumeric }
-argue_from_datum! { 'fcx; Inet, Internal, Json, JsonB, Uuid, PgRelation }
+argue_from_datum! { 'fcx; Inet, Internal, Json, JsonB, Uuid, PgRelation, TsVector, TsQuery }
 argue_from_datum! { 'fcx; pg_sys::BOX, pg_sys::CIRCLE, pg_sys::LINE, pg_sys::LSEG, pg_sys::ItemPointerData, pg_sys::Oid, pg_sys::Point, pg_sys::TransactionId }
 argue_from_datum! { 'fcx; Path, Polygon }
 // We could use the upcoming impl of ArgAbi for `&'fcx T where T: ?Sized + BorrowDatum`
@@ -542,7 +542,7 @@ macro_rules! impl_repackage_into_datum {
 impl_repackage_into_datum! {
     &[u8], &str, &CStr,
     String, CString, Vec<u8>, char,
-    Json, JsonB, Inet, Uuid, AnyNumeric, AnyArray, AnyElement, Internal,
+    Json, JsonB, Inet, Uuid, AnyNumeric, AnyArray, AnyElement, Internal, TsVector, TsQuery,
     Date, Interval, Time, TimeWithTimeZone, Timestamp, TimestampWithTimeZone,
     pg_sys::BOX, pg_sys::CIRCLE, pg_sys::LINE, pg_sys::LSEG,
     pg_sys::ItemPointerData, pg_sys::Oid, pg_sys::Point, pg_sys::TransactionId,
